@@ -4,10 +4,26 @@ const fullscreen_preview_img_wrapper = document.querySelector('.fullscreen_previ
 /*-----header-----*/
 const header = document.querySelector('.header')
 /*-----body-----*/
+const site_title_bg_hq = document.querySelector('.site_bg_hq')
+const site_title_bg_hq_src = "media/bg_hq.png"
+
 const body = document.querySelector('body')
 const content = document.querySelector("main.content")
 const slides = document.querySelectorAll('.swiper-slide')
 
+function load_bg(src) {
+    return new Promise((resolve, reject) => {
+        const image = new Image()
+        image.addEventListener('load', resolve)
+        image.addEventListener('error', reject)
+        image.src = src
+    })
+}
+load_bg(site_title_bg_hq_src).then(() => {
+    console.log("bg_hq")
+    site_title_bg_hq.style.backgroundImage = `url(${site_title_bg_hq_src})`
+    site_title_bg_hq.style.opacity = "1"
+})
 
 function fullscreen_preview_showing(){
     fullscreen_preview.style.display = 'block'
@@ -36,7 +52,7 @@ const swiper = new Swiper('.card_slider', {
     pagination:{
         el: ".swiper-pagination",
         clickable: true,
-        dynamicBullets: true,
+        dynamicBullets: false,
         dynamicMainBullets: 2,
         renderBullet: function(index, classname){
             return '<span class="' + classname + '">' + (index+1) + '</span>'

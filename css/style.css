@@ -1,6 +1,6 @@
 :root{
-    --header_color: #d4c999;
-    --body_color: rgb(240, 226, 209);
+    --header_color: #fff;
+    --body_color: rgb(244, 244, 244);
     --header_poloska: 0%;
 }
 
@@ -21,6 +21,15 @@ a{
         url("../fonts/Marmelad/Marmelad-Regular.woff") format("woff"),
         url("../fonts/Marmelad/Marmelad-Regular.eot") format("eot"),
         url("../fonts/Marmelad/Marmelad-Regular.ttf") format("ttf");
+}
+@font-face {
+    font-family: "Bahnschrift";
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url("../fonts/Bahnschrift/Bahnschrift.woff2") format("woff2"),
+        url("../fonts/Bahnschrift/Bahnschrift.woff") format("woff"),
+        url("../fonts/Bahnschrift/Bahnschrift.eot") format("eot");
 }
 
 
@@ -69,7 +78,7 @@ a{
 }
 
 body{
-    font-family: "Marmelad";
+    font-family: "Bahnschrift";
     color: black;
     background-color: var(--body_color)
 }
@@ -84,8 +93,9 @@ body{
     left: 0;
     width: 100%;
     height: auto;
-    background-color: var(--header_color);
+    background-color: #fff;
     font-size: clamp(0.875rem, 0.7593rem + 0.463vw, 1.5rem);
+    border-bottom: 4px solid rgb(87, 87, 225);
 }
 header::after {
     content: "";
@@ -106,7 +116,7 @@ header::after {
 .logo_wrapper{
     position: relative;
     border: 3px solid #00000000;
-    border-image: linear-gradient(0deg, rgb(61 78 51), rgb(12 88 168)) 1;
+    border-image: linear-gradient(0deg, rgb(146 204 127 / 29%), rgb(146 223 220)) 1;
     transition: border-color 0.5s, transform 0.25s ease-in;
 }
 .logo_wrapper::before, .logo_wrapper::after{
@@ -152,13 +162,13 @@ header::after {
     padding: 6px;
     align-items: center;
     gap: 10px;
-    background-color: #2affcf8f;
+    background-color: var(--body_color);
     border-radius: 13px 3px;
     color: black;
+    transition: background-color 0.3s;
 }
 .header address a:hover{
-    background: #00f9bf;
-    transition: background-color 0.3s;
+    background: var(--header_color);
 }
 .header address a:hover img, .header address a:focus img{
     transform: rotateZ(25deg);
@@ -170,6 +180,52 @@ header::after {
 }
 
 /*----------------*/
+
+.site_title{
+    color: var(--header_color);
+}
+.site_title .title{
+    font-size: clamp(1.4375rem, 1.1713rem + 1.0648vw, 2.875rem);
+    font-weight: bold;
+    padding: clamp(2.5rem, 1.8056rem + 2.7778vw, 6.25rem) /* 400px-2560px > 40px-100px */
+    clamp(1.25rem, 0.0926rem + 4.6296vw, 7.5rem); /* 400px-2560px > 20px-120px */
+    text-align: center;
+    position: relative;
+    z-index: 3;
+}
+.site_bg_lq, .site_bg_hq{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll;
+    transition: 0.7s;
+}
+.site_bg_lq{
+    position: relative;
+    background-image: url("../media/bg_lq.png");
+}
+.site_bg_filter{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-image: -webkit-linear-gradient(top, var(--header_color), rgb(0 0 0 / 50%)); */
+    background: #0000003b;
+    z-index: 2;
+}
+.site_bg_hq{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.7s;
+}
+
+/*--------------*/
 
 main.content{
     min-height: 100vh;
@@ -186,7 +242,7 @@ main.content{
     flex-direction: column;
     padding: 15px;
     position: relative;
-    background: #ffeed4c8;
+    background: var(--header_color);
     border-radius: 0px 15px;
 }
 .card_address{
@@ -224,6 +280,7 @@ main.content{
 }
 .swiper-slide{
     cursor: pointer;
+    user-select: none;
 }
 .swiper-button-next::after, .swiper-button-prev::after{
     color: white;
@@ -237,9 +294,9 @@ main.content{
 .swiper-pagination-bullet{
     width: clamp(0.9375rem, 0.8796rem + 0.2315vw, 1.25rem); /* 400px-2560px > 15px-20px */
     height: clamp(0.9375rem, 0.8796rem + 0.2315vw, 1.25rem); /* 400px-2560px > 15px-20px */
-    color: black;
+    color: rgb(255, 255, 255);
     font-weight: bold;
-    background-color: #ffffffcf;
+    background-color: #000000ad;
     opacity: 0.5;
     font-size: clamp(0.8125rem, 0.7778rem + 0.1389vw, 1rem); /* 400px-2560px > 13px-16px */
     display: flex;
@@ -285,23 +342,23 @@ main.content{
 }
 .old_price{
     position: relative;
-    color: #99a3ae;
+    color: #212428;
     font-size: clamp(0.75rem, 0.6458rem + 0.4167vw, 1.3125rem); /* 400px-2560px > 12px-21px */
 }
 .old_price::before{
-    background: #848a90;
+    background: rgb(248, 17, 85);
     content: "";
     display: block;
-    height: 1px;
+    height: 2px;
     left: 0;
     position: absolute;
     top: 50%;
-    transform: rotate(-2deg);
+    transform: rotate(355deg);
     width: 100%;
 }
 .new_price{
     color: rgb(248, 17, 85);
-    font-size: clamp(1.0625rem, 0.9583rem + 0.4167vw, 1.625rem); /* 400px-2560px > 17px-26px */
+    font-size: clamp(0.9375rem, 0.8333rem + 0.4167vw, 1.5rem); /* 400px-2560px > 15px-24px */
 }
 
 /*----------*/
@@ -343,7 +400,7 @@ main.content{
 
 .footer{
     position: relative;
-    color: rgb(255, 255, 255);
+    color: #fff;
     font-size: clamp(1rem, 0.919rem + 0.3241vw, 1.4375rem); /* 400px-2560px > 16px-23px */
 }
 .footer_wrapper{
@@ -362,7 +419,7 @@ main.content{
     gap: 10px;
     /* flex: 0 1 auto; */
     flex: 6;
-    box-shadow: 0 0 12px 3px rgba(255, 255, 255, 0.878);
+    box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.278);
     background-color: #fff;
     border-radius: 4px;
 }
@@ -381,18 +438,30 @@ main.content{
     flex-direction: column;
     gap: 14px;
     align-items: center;
+    justify-content: center;
     line-height: 130%;
+}
+.footer_info > ul{
+    background-color: var(--body_color);
+    padding: 20px;
+    border-radius: 9px;
+}
+.footer_info ul:nth-of-type(1){
+    background-color: rgb(242 137 2);
+}
+.footer_info ul:nth-of-type(2){
+    background-color: rgb(42 99 176);
 }
 footer .sep{
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     width: 100%;
 }
 footer a{
-    color: rgb(211, 255, 207);
+    color: #fff;
     transition: color 0.25s;
 }
 footer a:hover, footer a:focus{
-    color: rgb(145, 230, 138);
+    color: rgb(106, 233, 94);
     text-decoration: underline;
 }
 
@@ -422,7 +491,7 @@ footer a:hover, footer a:focus{
     overflow: hidden;
     height: 100%;
     bottom: -1px;
-    background-image: linear-gradient(to top, #000000a1 99%, var(--body_color) 100%);
+    background-image: linear-gradient(to top, #fff 98%, var(--body_color) 100%);
 }
 .bgTop {
     z-index: 15;
