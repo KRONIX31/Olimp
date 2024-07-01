@@ -7,6 +7,12 @@ const header = document.querySelector('.header')
 const site_title_bg_hq = document.querySelector('.site_bg_hq')
 const site_title_bg_hq_src = "media/bg_hq.png"
 
+const timer_deadline = new Date(2024, 06, 06, 11, 0)
+const timer_days = document.querySelector('.timer_days')
+const timer_hours = document.querySelector('.timer_hours')
+const timer_minutes = document.querySelector('.timer_minutes')
+let timerId = setInterval(countdownTimer, 1000)
+
 const body = document.querySelector('body')
 const content = document.querySelector("main.content")
 const slides = document.querySelectorAll('.swiper-slide')
@@ -43,6 +49,28 @@ function fullscreen_preview_closing(){
     body.style.overflow = 'auto'
     fullscreen_preview_img_wrapper.innerHTML = ''
 }
+
+function declensionNum(num, words) {
+    return words[(num % 100 > 4 && num % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(num % 10 < 5) ? num % 10 : 5]];
+}
+
+function countdownTimer() {
+    const diff = timer_deadline - new Date()
+    if (diff <= 0) {
+        clearInterval(timerId)
+    }
+    const days = diff > 0 ? Math.floor(diff / 1000 / 60 / 60 / 24) : 0
+    const hours = diff > 0 ? Math.floor(diff / 1000 / 60 / 60) % 24 : 0
+    const minutes = diff > 0 ? Math.floor(diff / 1000 / 60) % 60 : 0
+    timer_days.textContent = days < 10 ? '0' + days : days
+    timer_hours.textContent = hours < 10 ? '0' + hours : hours
+    timer_minutes.textContent = minutes < 10 ? '0' + minutes : minutes
+    timer_days.dataset.title = declensionNum(days, ['день', 'дня', 'дней'])
+    timer_hours.dataset.title = declensionNum(hours, ['час', 'часа', 'часов'])
+    timer_minutes.dataset.title = declensionNum(minutes, ['минута', 'минуты', 'минут'])
+}
+
+countdownTimer()
 
 const swiper = new Swiper('.card_slider', {
     navigation:{
