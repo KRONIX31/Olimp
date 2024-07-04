@@ -7,10 +7,15 @@ const header = document.querySelector('.header')
 const site_title_bg_hq = document.querySelector('.site_bg_hq')
 const site_title_bg_hq_src = "media/bg_hq.png"
 
-const timer_deadline = new Date(2024, 06, 06, 11, 0)
+// const timer_deadline = new Date(2024, 06, 06, 11, 0)
+const timer_start = new Date(2024, 06, 06, 11, 0)
+const timer_deadline = new Date(2024, 06, 09, 0, 0 + 1)
+const timer = document.querySelector('.timer')
+const timer_text = document.querySelector('.timer_text')
 const timer_days = document.querySelector('.timer_days')
 const timer_hours = document.querySelector('.timer_hours')
 const timer_minutes = document.querySelector('.timer_minutes')
+// const timer_seconds = document.querySelector('.timer_seconds')
 let timerId = setInterval(countdownTimer, 1000)
 
 const body = document.querySelector('body')
@@ -53,23 +58,37 @@ function fullscreen_preview_closing(){
 function declensionNum(num, words) {
     return words[(num % 100 > 4 && num % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(num % 10 < 5) ? num % 10 : 5]];
 }
-
 function countdownTimer() {
-    const diff = timer_deadline - new Date()
-    if (diff <= 0) {
-        clearInterval(timerId)
+    const NOW = new Date()
+    if(NOW < timer_start){
+        return
+    } else{
+        if(getComputedStyle(timer).getPropertyValue('display') == 'none'){
+            timer.style.setProperty('display', 'flex')
+        }
     }
+    const diff = timer_deadline - NOW
+    // if (diff <= 0) {
+    //     clearInterval(timerId)
+    //     timer_text.innerHTML = "К сожалению, ярмарка выгодных цен завершилась"
+    // }
     const days = diff > 0 ? Math.floor(diff / 1000 / 60 / 60 / 24) : 0
-    const hours = diff > 0 ? Math.floor(diff / 1000 / 60 / 60) % 24 : 0
+    const hours = diff > 0 ? Math.floor(diff / 1000 / 60 / 60 % 24) : 0
     const minutes = diff > 0 ? Math.floor(diff / 1000 / 60) % 60 : 0
+    // const seconds = diff > 0 ? Math.floor(diff / 1000) % 60 : 0
     timer_days.textContent = days < 10 ? '0' + days : days
     timer_hours.textContent = hours < 10 ? '0' + hours : hours
     timer_minutes.textContent = minutes < 10 ? '0' + minutes : minutes
+    // timer_seconds.textContent = seconds < 10 ? '0' + seconds : seconds
     timer_days.dataset.title = declensionNum(days, ['день', 'дня', 'дней'])
     timer_hours.dataset.title = declensionNum(hours, ['час', 'часа', 'часов'])
     timer_minutes.dataset.title = declensionNum(minutes, ['минута', 'минуты', 'минут'])
+    // timer_seconds.dataset.title = declensionNum(seconds, ['секунда', 'секунды', 'секунд'])
+    if(days === 0 && hours === 0 && minutes === 0){
+        clearInterval(timerId)
+        timer_text.innerHTML = "К сожалению, ярмарка выгодных цен завершилась"
+    }
 }
-
 countdownTimer()
 
 const swiper = new Swiper('.card_slider', {
@@ -87,13 +106,9 @@ const swiper = new Swiper('.card_slider', {
         }
     },
     preloadImages: false, /* отключение предзагрузки всех картинок */
-    lazy: {
-        loadOnTransitionStart: false, /* загрузка картинок при переключении слайда */
-        loadPrevNext: false
-    },
     autoHeight: true,
     watchOverflow: true,
-    speed: 500,
+    speed: 400,
     slidesPerGroup: 1,
     centeredSlides: false,
     grabCursor: true,
@@ -142,12 +157,17 @@ slides.forEach(slide => {
     })
 })
 
-// Intense(slides) zoom решить
 
 window.addEventListener('scroll',()=>{
     let max_height = window.document.documentElement.scrollHeight - window.innerHeight
     document.documentElement.style.setProperty('--header_poloska', `${window.scrollY / max_height * 100}%`)
 })
-fullscreen_preview_close.addEventListener('click', ()=>{
+
+document.addEventListener('keydown', (e)=>{
+    if(getComputedStyle(fullscreen_preview).getPropertyValue("opacity") === '1' && e.key == "Escape"){
+        fullscreen_preview_closing()
+    }
+})
+fullscreen_preview_close.addEventListener('click', (e)=>{
     fullscreen_preview_closing()
 })
