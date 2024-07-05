@@ -86,7 +86,7 @@ body{
     background-color: var(--body_color)
 }
 .wrapper {
-    width: min(100%, 1450px);
+    width: min(100%, clamp(90.625rem, -29.375rem + 100vw, 130.625rem)); /* 1920px-2560px > 1450px-2090px */
     margin: 0 auto;
 }
 .header{
@@ -293,6 +293,7 @@ main.content{
     min-height: 100vh;
 }
 .content_wrapper{
+    counter-reset: count;
     display: flex;
     flex-direction: column;
     gap: 50px;
@@ -302,10 +303,21 @@ main.content{
     display: flex;
     row-gap: 11px;
     flex-direction: column;
-    padding: 15px;
+    padding: 20px 15px 10px 15px;
     position: relative;
     background: var(--header_color);
     border-radius: 0px 15px;
+    counter-increment: count 1;
+}
+.card::before{
+    content: counter(count);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 18px;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 1px 3px;
 }
 .card_address{
 
@@ -392,12 +404,12 @@ main.content{
 .swiper-pagination-bullet-active-next-next, .swiper-pagination-bullet-active-prev-prev{
     transform: scale(.8) !important;
 }
-.slider_image{
-    
-}
+
 .slider_image img{
     width: 100%;
-    min-height: 110px;
+    object-fit: cover;
+    aspect-ratio: 1.29;
+    /* min-height: 110px; */
 }
 
 /*------*/
@@ -436,6 +448,21 @@ main.content{
 .new_price{
     color: rgb(248, 17, 85);
     font-size: clamp(0.9375rem, 0.8333rem + 0.4167vw, 1.5rem); /* 400px-2560px > 15px-24px */
+}
+.short_desc{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: clamp(0.75rem, 0.6458rem + 0.4167vw, 1.3125rem); /* 400px-2560px > 12px-21px */
+    border-top: 2px dashed #0000001a;
+    padding-top: 11px;
+}
+.short_desc figcaption{
+    font-size: clamp(0.875rem, 0.7708rem + 0.4167vw, 1.4375rem); /* 400px-2560px > 14px-23px */
+}
+.short_desc ul{
+    margin: 5px 0 0 20px;
+    list-style-type: disc;
 }
 
 /*----------*/
@@ -621,13 +648,10 @@ footer a:hover, footer a:focus{
     .fullscreen_preview{
         padding: 60px;
     }
-    .header_wrapper{
-        width: min(100%, 1900px);
-    }
 }
 @media (max-width: 600px){
     .fullscreen_preview{
-        padding: 10px 15px;
+        padding: 6px 8px;
     }
 
     .timer{
@@ -636,7 +660,7 @@ footer a:hover, footer a:focus{
     }
 
     .card{
-        padding: 15px 5px;
+        padding: 20px 5px 10px 5px;
     }
 
     .footer_wrapper{
@@ -644,13 +668,14 @@ footer a:hover, footer a:focus{
         gap: 60px;
     }
 }
+@media (max-height: 430px){
+    .fullscreen_preview{
+        padding: 6px 8px;
+    }
+}
+
 @media (max-width: 570px){
     :root{
         --swiper-pagination-bullet-horizontal-gap: 0;
-    }
-}
-@media (max-height: 414px){
-    .fullscreen_preview{
-        padding: 7px 15px;
     }
 }

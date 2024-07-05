@@ -43,7 +43,6 @@ function fullscreen_preview_showing(){
     setTimeout(()=>{
         fullscreen_preview.style.opacity = '1'
     }, 30)
-
 }
 function fullscreen_preview_closing(){
     fullscreen_preview.style.opacity = '0'
@@ -106,7 +105,7 @@ const swiper = new Swiper('.card_slider', {
         }
     },
     preloadImages: false, /* отключение предзагрузки всех картинок */
-    autoHeight: true,
+    autoHeight: false,
     watchOverflow: true,
     speed: 400,
     slidesPerGroup: 1,
@@ -114,9 +113,9 @@ const swiper = new Swiper('.card_slider', {
     grabCursor: true,
     effect: "coverflow",
     coverflowEffect:{
-        rotate: 9,
-        stretch: 0,
-        depth: 10,
+        rotate: 0,
+        stretch: 10,
+        depth: 0,
         modifier: 1,
         slideShadows: true
     },
@@ -127,16 +126,20 @@ const swiper = new Swiper('.card_slider', {
         },
         570: {
           slidesPerView: 2,
-          spaceBetween: 10
+          spaceBetween: 15,
         },
         800: {
           slidesPerView: 3,
-          spaceBetween: 15
+          spaceBetween: 15,
         },
         1100: {
           slidesPerView: 4,
-          spaceBetween: 25
-        }
+          spaceBetween: 25,
+        },
+        2300: {
+            slidesPerView: 5,
+            spaceBetween: 25,
+        },
     },
 })
 
@@ -168,6 +171,6 @@ document.addEventListener('keydown', (e)=>{
         fullscreen_preview_closing()
     }
 })
-fullscreen_preview_close.addEventListener('click', (e)=>{
+fullscreen_preview_close.addEventListener('click', ()=>{
     fullscreen_preview_closing()
 })
