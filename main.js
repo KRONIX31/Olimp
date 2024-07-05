@@ -8,7 +8,7 @@ const site_title_bg_hq = document.querySelector('.site_bg_hq')
 const site_title_bg_hq_src = "media/bg_hq.png"
 
 // const timer_deadline = new Date(2024, 06, 06, 11, 0)
-const timer_start = new Date(2024, 06, 06, 11, 0)
+const timer_start = new Date(2024, 06, 05, 11, 0)
 const timer_deadline = new Date(2024, 06, 09, 0, 0 + 1)
 const timer = document.querySelector('.timer')
 const timer_text = document.querySelector('.timer_text')
